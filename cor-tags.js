@@ -1,8 +1,3 @@
-// ============================================================
-//  COR TAGS — sistema de cores via <cor tom="nome">texto</cor>
-// ============================================================
-
-// 🎨 PALETA — adicione ou modifique cores aqui livremente
 const PALETA = {
   vermelho:         "#C50F1F",
   verde:            "#13A10E",
@@ -22,22 +17,14 @@ const PALETA = {
   amarelobrilhante: "#F9F1A5",
 };
 
-// ⚙️ OPCOES — comportamento padrão do sistema
 const OPCOES = {
-  tagNome:      "cor",      // nome da tag HTML customizada (<cor>)
-  atributo:     "tom",      // atributo que define a cor (<cor tom="azul">)
-  corPadrao:    "#ff4444",  // cor usada se o tom não existir na paleta
-  avisoConsole: true,       // mostra aviso no console p/ tons desconhecidos
-
-  // Cor do texto durante ::selection (null = herda do tema / branco automático)
+  tagNome:      "cor",
+  atributo:     "tom",
+  corPadrao:    "#ff4444",
+  avisoConsole: true,
   selectionTextoCor: null,
 };
 
-// ============================================================
-//  Lógica interna — não precisa mexer aqui embaixo
-// ============================================================
-
-// Injeta (ou reutiliza) uma <style> dedicada ao sistema
 function _obterStyleSheet() {
   const ID = "__cor-tags-styles__";
   let style = document.getElementById(ID);
@@ -49,7 +36,6 @@ function _obterStyleSheet() {
   return style.sheet;
 }
 
-// Converte hex → RGB para calcular luminância e escolher texto claro/escuro
 function _hexParaRgb(hex) {
   const h = hex.replace("#", "");
   const n = parseInt(h.length === 3
@@ -71,7 +57,6 @@ function _corTextoSelection(hexFundo) {
   return _luminancia(_hexParaRgb(hexFundo)) > 0.35 ? "#111111" : "#ffffff";
 }
 
-// Garante que a regra ::selection para determinada classe exista na sheet
 const _classesRegistradas = new Set();
 
 function _registrarSelectionRule(sheet, nomeTom, hexFundo) {
@@ -85,7 +70,6 @@ function _registrarSelectionRule(sheet, nomeTom, hexFundo) {
   try {
     sheet.insertRule(regra, sheet.cssRules.length);
   } catch (e) {
-    // fallback: adiciona via textContent se insertRule falhar
     const styleEl = document.getElementById("__cor-tags-styles__");
     if (styleEl) styleEl.textContent += regra;
   }
@@ -112,23 +96,19 @@ function processarCorTags() {
       }
       tag.style.color = OPCOES.corPadrao;
 
-      // ::selection com a corPadrao
       const classe = _registrarSelectionRule(sheet, "padrao", OPCOES.corPadrao);
       tag.classList.add(classe);
     } else {
       tag.style.color = cor;
 
-      // ::selection com a cor da paleta
       const classe = _registrarSelectionRule(sheet, tom, cor);
       tag.classList.add(classe);
     }
 
-    // garante que a tag seja inline sem quebrar o fluxo do texto
     tag.style.display = "inline";
   });
 }
 
-// Roda assim que o DOM estiver pronto
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", processarCorTags);
 } else {
