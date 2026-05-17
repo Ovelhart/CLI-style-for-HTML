@@ -1,0 +1,151 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="cor-tags.js"></script>
+    <script src="imgascii.js"></script>
+    <script src="toilet-tags.js"></script>
+    <title>topbar</title>
+</head>
+<style>
+    :root {
+        --fundo: #0C0C0C;
+        --cor: #CCCCCC;
+        --select: #CCCCCC;
+    }
+
+    body {
+        margin: 0 1rem;
+    }
+
+    .topbar {
+        display: flex;
+        position: sticky;
+        flex-direction: column;
+        top: 0;
+        background-color: var(--fundo);
+    }
+
+    .topbar .barra {
+        height: 3rem;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .centro-img {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .direita-btn {
+        display: flex;
+        position: fixed;
+        right: 0;
+        justify-content: right;
+        text-align: right;
+    }
+
+    .direita-btn .input-box {
+        display: flex;
+        margin-right: 1rem;
+        width: 10rem;
+    }
+
+    #rotate-warning {
+        position: fixed;
+        inset: 0;
+        background: black;
+        color: white;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999;
+        text-align: center;
+    }
+
+    .rotate-box {
+        font-size:1rem;
+        padding: 20px;
+        white-space: normal;
+    }
+</style>
+
+<body>
+    <div class="topbar">
+        <div class="barra"><span class="invertido">varius sodales</span> <span class="btn-text">( integer )</span> <span
+                class="btn-text">( lorem )</span> <span class="btn-text">( dui )</span> <span class="direita-btn">
+                <div class="input-box">
+                    <span>
+                        <cor tom="vermelho">-></cor>
+                    </span>
+                    <input type="text" placeholder="amet eget">
+                </div>
+            </span></div>
+        <hr class="hr-auto">
+    </div>
+    <p></p>
+    <toilet text="Lorem Ipsum" cor="vermelho" estilo="banner" alinhamento="centro"></toilet>
+    <cor tom="amarelo">Suspendisse et sodales dictum metus ultricies nam purus. Morbi odio porta magna penatibus etiam
+        facilisis tincidunt volutpat iaculis faucibus tempor. Etiam et fusce; morbi diam erat pharetra a. Laoreet cum ac
+        aliquet natoque tempus, dignissim sit sed nullam ut erat? Iaculis rhoncus lacus commodo fringilla etiam iaculis
+        commodo; curabitur odio sagittis. Mollis turpis et pulvinar donec posuere fames enim mollis.</cor>
+    <p></p>
+    <cor tom="amarelo">Dui urna cras a platea arcu velit accumsan dignissim mi praesent quam. Mus ipsum turpis non
+        maecenas euismod non augue montes dictum curabitur. Ridiculus montes porttitor molestie eros; accumsan leo
+        felis. Justo fames interdum interdum sagittis suspendisse congue dictumst ultrices sagittis orci. Pulvinar
+        consectetur facilisi habitant maecenas et aliquam vestibulum.</cor>
+    <p></p>
+    <span class="centro-img">
+        <imgascii url="https://picsum.photos/200" height="30" width="60" color="true">
+    </span>
+    <p></p>
+
+    <div id="rotate-warning">
+        <div class="rotate-box">
+            <cor tom="amarelo">Deite o celular ou tablet para continuar</cor>
+            <imgascii url="img/mobile-phone.png" height="26" width="50" color="true">
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function fillHR() {
+        document.querySelectorAll(".hr-auto").forEach(hr => {
+
+            const style = getComputedStyle(hr);
+            const fontSize = parseFloat(style.fontSize);
+            const letterSpacing = parseFloat(style.letterSpacing);
+            const charWidth = (fontSize * 0.6) + letterSpacing;
+            const width = hr.clientWidth;
+            const amount = Math.ceil(width / charWidth) + 0;
+            hr.setAttribute("data-content", "-".repeat(amount));
+        });
+    }
+
+    fillHR();
+    window.addEventListener("resize", fillHR);
+</script>
+<script>
+function checkOrientation() {
+    requestAnimationFrame(() => {
+        const warning = document.getElementById("rotate-warning");
+        if (window.innerWidth < 750) {
+            warning.style.display = "flex";
+        } else {
+            warning.style.display = "none";
+        }
+    });
+}
+
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
+
+checkOrientation();
+</script>

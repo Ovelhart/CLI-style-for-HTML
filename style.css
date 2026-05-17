@@ -1,0 +1,164 @@
+:root {
+    --fundo: #0C0C0C;
+    --cor: #CCCCCC;
+    --select: #CCCCCC;
+}
+
+@font-face {
+    font-family: 'Cascadia Code';
+    src: url('CascadiaCode-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+html,
+body {
+    font-family: Cascadia Code;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+body {
+    margin: 1rem;
+    background-color: var(--fundo);
+    color: var(--cor);
+}
+
+h5 {
+    font-size: 1em;
+    margin: 0;
+}
+
+::selection {
+    background-color: var(--select);
+    color: var(--fundo);
+}
+
+button {
+    appearance: none;
+    background: none;
+    outline: none;
+    border: none;
+    color: var(--cor);
+    text-align: left;
+    font-size: 1em;
+    font-family: Cascadia Code;
+}
+
+* {
+    font-family: Cascadia Code;
+}
+
+p {
+    margin: 0;
+    height: 0;
+    margin-top: 1rem;
+}
+
+ol {
+    list-style: none;
+    counter-reset: meu-contador;
+    margin: 0;
+    padding-left: 1rem;
+}
+
+ol li {
+    counter-increment: escolhas;
+    margin: 0;
+    cursor: pointer;
+    width: fit-content;
+}
+
+ol li::before {
+    content: counter(escolhas) ") ";
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ol li:hover {
+    text-decoration: underline;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #26262639;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3f3f3f;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #232323;
+}
+
+.hr-auto {
+    border: none;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    letter-spacing: .3rem;
+    line-height: 1;
+    color: white;
+}
+
+.hr-auto::before {
+    content: attr(data-content);
+    display: block;
+}
+
+.input-box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.input-box input {
+    appearance: none;
+    display: flex;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: var(--cor);
+    height: 2rem;
+}
+
+.input-box span {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    width: 2em;
+}
+
+.input-box input:focus {
+    outline: none;
+}
+
+.invertido {
+    background-color: var(--cor);
+    color: var(--fundo);
+    margin-right: 3rem;
+}
+
+.btn-text {
+    margin-right: 3rem;
+    cursor: pointer;
+}
